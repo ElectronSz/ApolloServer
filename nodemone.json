@@ -1,0 +1,6 @@
+{
+    "verbose": true,
+    "watch": [ "server/*" ],
+    "ext": "js, graphql",
+    "exec": "node -r esm  ./server/index.js"
+  }

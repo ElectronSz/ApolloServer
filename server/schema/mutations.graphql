@@ -1,0 +1,3 @@
+type Mutation {
+  createPerson(fname: String!, lname: String!): Person
+}
