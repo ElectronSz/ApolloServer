@@ -1,3 +1,7 @@
 type Mutation {
   createPerson(fname: String!, lname: String!): Person
 }
+
+type Mutation {
+  getPersonById(id: String): Person
+}

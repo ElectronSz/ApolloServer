@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-
+import timestamps  from 'mongoose-timestamp'
 const PersonSchema = new mongoose.Schema({
   fname: {
     type: String,
@@ -10,5 +10,9 @@ const PersonSchema = new mongoose.Schema({
     unique: false
   }
 })
+
+PersonSchema.plugin(timestamps)
+PersonSchema.index({ createdAt: 1, updatedAt: 1 });
+
 
 export default mongoose.model('person', PersonSchema)

@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 import { resolve } from 'path'
 import { mergeTypes, fileLoader } from 'merge-graphql-schemas';
 import { ApolloServer, gql } from 'apollo-server'
-
+//import { schema } from './schema/schema';
 import resolvers from './resolvers'
 
 const schema = mergeTypes(

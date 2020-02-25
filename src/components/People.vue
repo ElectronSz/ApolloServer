@@ -18,7 +18,7 @@
       <div class="message-body">There are no people in the database</div>
     </article>
 
-    <div class="row">
+    <div class="row mt-4">
       <div class="col-md-6">
         <div class="form-group">
           <input class="form-control" v-model="person.fname" placeholder="First Name" />
