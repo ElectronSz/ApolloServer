@@ -3,13 +3,13 @@ import { composeWithMongoose } from 'graphql-compose-mongoose';
 import { schemaComposer } from 'graphql-compose';
 
 // STEP 1: DEFINE MONGOOSE SCHEMA AND MODEL
-// const LanguagesSchema = new mongoose.Schema({
-//   language: String,
-//   skill: {
-//     type: String,
-//     enum: [ 'basic', 'fluent', 'native' ],
-//   },
-// });
+const LanguagesSchema = new mongoose.Schema({
+  language: String,
+  skill: {
+    type: String,
+    enum: [ 'basic', 'fluent', 'native' ],
+  },
+});
 
 const UserSchema = new mongoose.Schema({
   fname: String,
@@ -21,10 +21,10 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     index: true,
   },
-  // languages: {
-  //   type: Array,
-  //   default: [],
-  // },
+  languages: {
+    type: [LanguagesSchema],
+    default: [],
+  },
   contacts: { 
     email: String,
     phones: [String],
@@ -34,13 +34,11 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model('User', UserSchema);
 
 
-
 // STEP 2: CONVERT MONGOOSE MODEL TO GraphQL PIECES
-const customizationOptions = {}; // left it empty for simplicity, described below
+const customizationOptions = {}; 
 const UserTC = composeWithMongoose(User, customizationOptions);
 
 // STEP 3: Add needed CRUD User operations to the GraphQL Schema
-// via graphql-compose it will be much much easier, with less typing
 schemaComposer.Query.addFields({
   userById: UserTC.getResolver('findById'),
   userByIds: UserTC.getResolver('findByIds'),

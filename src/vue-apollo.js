@@ -1,12 +1,16 @@
 import Vue from 'vue'
 import VueApollo from 'vue-apollo'
 import { createApolloClient, restartWebsockets } from 'vue-cli-plugin-apollo/graphql-client'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 
 // Install the vue plugin
 Vue.use(VueApollo)
 
 // Name of the localStorage item
 const AUTH_TOKEN = 'apollo-token'
+
+//cache implementation
+const cache = new InMemoryCache()
 
 // Http endpoint
 const httpEndpoint = process.env.VUE_APP_GRAPHQL_HTTP || 'http://localhost:4000/graphql'
@@ -17,7 +21,7 @@ const defaultOptions = {
   httpEndpoint,
   // You can use `wss` for secure connection (recommended in production)
   // Use `null` to disable subscriptions
-  wsEndpoint: process.env.VUE_APP_GRAPHQL_WS || 'ws://localhost:4000/graphql',
+  wsEndpoint: null,
   // LocalStorage token
   tokenName: AUTH_TOKEN,
   // Enable Automatic Query persisting with Apollo Engine
@@ -34,7 +38,7 @@ const defaultOptions = {
   // link: myLink
 
   // Override default cache
-  // cache: myCache
+  cache: cache,
 
   // Override the way the Authorization header is set
   // getAuth: (tokenName) => ...
@@ -47,7 +51,7 @@ const defaultOptions = {
 }
 
 // Call this in the Vue app file
-export function createProvider (options = {}) {
+export function createProvider(options = {}) {
   // Create apollo client
   const { apolloClient, wsClient } = createApolloClient({
     ...defaultOptions,
@@ -63,7 +67,7 @@ export function createProvider (options = {}) {
         // fetchPolicy: 'cache-and-network',
       },
     },
-    errorHandler (error) {
+    errorHandler(error) {
       // eslint-disable-next-line no-console
       console.log('%cError', 'background: red; color: white; padding: 2px 4px; border-radius: 3px; font-weight: bold;', error.message)
     },
@@ -73,7 +77,7 @@ export function createProvider (options = {}) {
 }
 
 // Manually call this when user log in
-export async function onLogin (apolloClient, token) {
+export async function onLogin(apolloClient, token) {
   if (typeof localStorage !== 'undefined' && token) {
     localStorage.setItem(AUTH_TOKEN, token)
   }
@@ -87,7 +91,7 @@ export async function onLogin (apolloClient, token) {
 }
 
 // Manually call this when user log out
-export async function onLogout (apolloClient) {
+export async function onLogout(apolloClient) {
   if (typeof localStorage !== 'undefined') {
     localStorage.removeItem(AUTH_TOKEN)
   }
