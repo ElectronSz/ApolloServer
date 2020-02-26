@@ -5,15 +5,18 @@
   "scripts": {
     "web:dev": "vue-cli-service serve",
     "web:build": "vue-cli-service build",
-    "server:dev": "node -r esm  ./server/index.js",
+    "server:dev": "node -r esm  ./server1/app.js",
     "server:build": "cross-env BABEL_ENV='node' babel ./server --out-dir ./build --copy-files",
     "start": " nodemon node build/index"
   },
   "dependencies": {
     "apollo-server": "^2.10.1",
+    "apollo-server-express": "^2.10.1",
     "core-js": "^3.6.4",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
     "graphql": "^14.6.0",
     "graphql-compose": "^7.12.3",
     "graphql-compose-mongoose": "^7.3.4",

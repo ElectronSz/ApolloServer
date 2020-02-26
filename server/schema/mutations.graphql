@@ -5,3 +5,6 @@ type Mutation {
 type Mutation {
   getPersonById(id: String): Person
 }
+type Mutation {
+  deletePerson(id: String):Person
+}

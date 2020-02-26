@@ -16,6 +16,12 @@ export default {
       const person = await PersonApi.findById(id)
 
       return person
+    },
+
+    deletePerson: async (parent, id) =>{
+      const { deletedCount } = await PersonApi.deleteOne(id)
+
+      return deletedCount
     }
   },
 

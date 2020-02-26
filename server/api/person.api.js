@@ -7,8 +7,12 @@ export function create(data) {
 
 export function findAll() {
     return Person.find()
-  }
+}
 
-  export function findById(id){
-      return Person.findOne({_id: Schema.Types.ObjectId(id)})
-  }
+export function findById(id) {
+    return Person.findOne(Schema.Types.ObjectId(id)).exec()
+}
+
+export function deleteOne(id){
+    return Person.deleteOne(Schema.Types.ObjectId(id)).exec()
+}
