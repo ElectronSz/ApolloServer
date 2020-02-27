@@ -20,6 +20,8 @@
     "graphql": "^14.6.0",
     "graphql-compose": "^7.12.3",
     "graphql-compose-mongoose": "^7.3.4",
+    "graphql-compose-relay": "^5.0.3",
+    "lodash": "^4.17.15",
     "merge-graphql-schemas": "^1.7.6",
     "mongoose": "^5.9.2",
     "mongoose-timestamp": "^0.6.0",
