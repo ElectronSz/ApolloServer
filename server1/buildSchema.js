@@ -9,6 +9,18 @@ const customizationOptions = {};
 const UserTC = composeWithMongoose(User, customizationOptions);
 const PostTC = composeWithMongoose(Post, customizationOptions);
 
+UserTC.addResolver({
+  name: 'findUserByName',
+  type: UserTC,
+  args: { name: 'String!'},
+  resolve: async ({ source, args, context, info }) => {
+
+    const user = await User.findOne({fname: args.name})
+  
+    return user
+  }
+})
+
 
 schemaComposer.Query.addFields({
   getUserById: UserTC.getResolver('findById'),
@@ -19,10 +31,15 @@ schemaComposer.Query.addFields({
   userConnection: UserTC.getResolver('connection'),
   userPagination: UserTC.getResolver('pagination'),
 
+
+
   getPostById: PostTC.getResolver('findById'),
+  getPostByIds: PostTC.getResolver('findByIds'),
+  getOnePost: PostTC.getResolver('findOne'),
   getAllPosts: PostTC.getResolver('findMany'),
   countPosts: PostTC.getResolver('count'),
   postConnection: PostTC.getResolver('connection'),
+  postPagination: PostTC.getResolver('pagination'),
 });
 
 
@@ -36,9 +53,20 @@ schemaComposer.Mutation.addFields({
   removeOneUser: UserTC.getResolver('removeOne'),
   removeManyUsers: UserTC.getResolver('removeMany'),
 
+  //custom [UserTC] resolvers
+  findUserByName: UserTC.getResolver('findUserByName'),
+
+
   createOnePost: PostTC.getResolver('createOne'),
+  createMnayPosts: PostTC.getResolver('createMany'),
   updatePostById: PostTC.getResolver('updateById'),
-  removePostById: PostTC.getResolver('removeById')
+  updateOnePost: PostTC.getResolver('updateOne'),
+  updateManyPosts: PostTC.getResolver('updateMany'),
+  removePostById: PostTC.getResolver('removeById'),
+  removeOnePost: PostTC.getResolver('removeOne'),
+  removeManyPost: PostTC.getResolver('removeMany'),
+
+
 });
 
 // UserTC.addRelation('posts', {

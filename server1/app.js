@@ -5,7 +5,7 @@ import { ApolloServer } from 'apollo-server-express';
 import mongoose from 'mongoose';
 
 import './utils/db';
-import schema from './buildSchema';
+import schema from './buildSchema.ts';
 
 dotenv.config();
 
