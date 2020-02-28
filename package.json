@@ -5,10 +5,10 @@
   "scripts": {
     "web:dev": "vue-cli-service serve",
     "web:build": "vue-cli-service build",
-    "server:dev": "node -r esm  ./server2/app.js",
+    "server:dev": "node -r esm  ./server1/app.js",
     "server:build": "cross-env BABEL_ENV='node' babel ./server --out-dir ./build --copy-files",
     "start": " nodemon node build/index",
-    "run:server": "nodemon --exec babel-node -r esm ./server2/app.js",
+    "run:server": "nodemon --exec babel-node -r esm ./server/index.js",
     "dev": "nodemon --exec babel-node ./server2/app.js"
   },
   "dependencies": {

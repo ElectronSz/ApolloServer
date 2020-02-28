@@ -12,7 +12,8 @@ var bookSchema = new mongoose.Schema({
         default: Date.now()
     },
     authorId: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'author'
     }
 })
 

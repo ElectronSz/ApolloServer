@@ -13,17 +13,17 @@ const AuthorTC = composeWithMongoose(Author, customizationOptions);
 
 
 BookTC.addFields({
-  author: {
+  authorId: {
     type: AuthorTC,
-    resolve: book => Author.findOne({ id: book.authorId })
+    resolve: book => Author.findOne({ _id: book.authorId })
   },
 })
 
 AuthorTC.addFields({
   books: {
     type: [BookTC],
-    resolve: async (author) => {
-      const user = await Book.find({ authorId: author.id })
+    resolve: async (authorId) => {
+      const user = await Book.find({ authorId: authorId.id })
       
       if (!user) {
         return []
@@ -36,16 +36,16 @@ AuthorTC.addFields({
   },
 })
 
-BookTC.addResolver({
-  name: 'getAllBooks',
-  type: BookTC,
-  resolve: async ({ source, args, context, info }) => {
+// BookTC.addResolver({
+//   name: 'getAllBooks',
+//   type: BookTC,
+//   resolve: async ({ source, args, context, info }) => {
 
-    const user = await Book.find()
+//     const user = await Book.find()
 
-    return user
-  }
-})
+//     return user
+//   }
+// })
 
 schemaComposer.Query.addFields({
   getAuthorById: AuthorTC.getResolver('findById'),
@@ -61,7 +61,7 @@ schemaComposer.Query.addFields({
   getBookById: BookTC.getResolver('findById'),
   // getPostByIds: PostTC.getResolver('findByIds'),
   // getOnePost: PostTC.getResolver('findOne'),
-  getAllBooks: BookTC.getResolver('getAllBooks'),
+  getAllBooks: BookTC.getResolver('findMany'),
   // countPosts: PostTC.getResolver('count'),
   // postConnection: PostTC.getResolver('connection'),
   // postPagination: PostTC.getResolver('pagination'),

@@ -1,9 +1,7 @@
 import mongoose from 'mongoose'
 
 var authorSchema = new mongoose.Schema({
-    id: {
-        type: String
-    },
+   
     fname: { type: String },
     lname: { type: String },
     fullname: {
@@ -20,11 +18,16 @@ var authorSchema = new mongoose.Schema({
     contacts: {
         email: String,
         phone: String
-    }
+    },
+    books: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Book'
+        
+    }],
 })
-authorSchema.pre('save', function(next) {
-    this.fullname = this.fname+" "+this.lname
+authorSchema.pre('save', function (next) {
+    this.fullname = this.fname + " " + this.lname
     next();
-  });
-  
+});
+
 export default authorSchema
