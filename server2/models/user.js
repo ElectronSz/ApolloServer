@@ -17,6 +17,12 @@ const userSchema = new mongoose.Schema({
       ref: 'post',
     },
   ],
+  profiles: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'profile',
+    }
+  ]
 });
 
 userSchema.pre('save', function() {

@@ -5,12 +5,12 @@ export default gql`
     id: ID!
     fname: String!
     lname: String!
-    user: User!
+    user: User
   }
 
   extend type Query {
-    profile(id: ID!): Profile!
-    profiles: [Profile!]!
+    profile(id: ID!): Profile
+    profiles: [Profile]
   }
 
   extend type Mutation {
