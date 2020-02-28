@@ -3,12 +3,16 @@ import { schemaComposer } from 'graphql-compose';
 // import composeWithRelay from 'graphql-compose-relay'
 import Book from './models/book'
 import Author from './models/author'
+import Company from './models/company'
+import User from './models/user'
 
 
 const customizationOptions = {};
 const BookTC = composeWithMongoose(Book, customizationOptions);
 const AuthorTC = composeWithMongoose(Author, customizationOptions);
 
+const CompantTc = composeWithMongoose(Company, customizationOptions)
+const UserTc = composeWithMongoose(Company, customizationOptions)
 
 
 

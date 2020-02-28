@@ -20,6 +20,12 @@ const UserSchema = new mongoose.Schema({
       email: String,
       phones: [String],
     },
+
+    company: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Company'
+    }
+    
   });
 
 
