@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import LanguagesSchema from './languages'
+import bcrypt from 'bcrypt';
 
 const UserSchema = new mongoose.Schema({
     fname: String,
@@ -20,6 +21,12 @@ const UserSchema = new mongoose.Schema({
       phones: [String],
     },
   });
+
+
+  // userSchema.pre('save', function() {
+  //   const hashedPassword = bcrypt.hashSync(this.password, 12);
+  //   this.password = hashedPassword;
+  // });
 
   export default UserSchema
   
