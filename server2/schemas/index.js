@@ -1,5 +1,7 @@
 import userSchema from './user';
 import postSchema from './post';
+import profileSchema from './profile'
+
 import { gql } from 'apollo-server';
 
 const linkSchema = gql`
@@ -11,5 +13,5 @@ const linkSchema = gql`
   }
 `;
 
-export default [linkSchema, userSchema, postSchema];
+export default [linkSchema, userSchema, postSchema, profileSchema];
 

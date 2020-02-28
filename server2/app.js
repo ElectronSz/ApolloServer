@@ -10,6 +10,7 @@ import resolvers from './resolvers';
 
 import userModel from './models/user';
 import postModel from './models/post';
+import profileModel from './models/profile';
 
 const app = express();
 app.use(cors());
@@ -38,6 +39,7 @@ const server = new ApolloServer({
         models: {
           userModel,
           postModel,
+          profileModel,
         },
       };
     }
