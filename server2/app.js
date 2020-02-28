@@ -3,6 +3,7 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 import { ApolloServer, AuthenticationError } from 'apollo-server-express';
+import './db/index'
 
 import schemas from './schemas';
 import resolvers from './resolvers';
@@ -41,11 +42,29 @@ const server = new ApolloServer({
       };
     }
   },
+  cors: true,
+  playground: process.env.NODE_ENV === 'development' ? true : false,
+  introspection: true,
+  tracing: true,
+  path: '/',
 });
 
-server.applyMiddleware({ app, path: '/' });
+server.applyMiddleware({
+    app,
+    path: '/',
+    cors: true,
+    onHealthCheck: () =>
+        new Promise((resolve, reject) => {
+            if (mongoose.connection.readyState > 0) {
+                resolve();
+            } else {
+                reject();
+            }
+        }),
+});
 
-app.listen(process.env.SERVER_PORT, () => {
-  mongoose.connect('mongodb://localhost:27017/graphql');
-  console.log(`Sever running on localhost:${process.env.SERVER_PORT}`);
+
+app.listen({ port: process.env.SERVER_PORT }, () => {
+  console.log(`🚀 Server listening on port ${process.env.SERVER_PORT}`);
+  console.log(`😷 Health checks available at ${process.env.HEALTH_ENDPOINT}`);
 });

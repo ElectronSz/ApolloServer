@@ -4,6 +4,8 @@ import { AuthenticationError } from 'apollo-server';
 
 export default {
   Query: {
+
+    //get user
     user: async (parent, { id }, { models: { userModel }, me }, info) => {
       if (!me) {
         throw new AuthenticationError('You are not authenticated');
@@ -11,8 +13,10 @@ export default {
       const user = await userModel.findById({ _id: id }).exec();
       return user;
     },
-    login: async (parent, { name, password }, { models: { userModel } }, info) => {
-      const user = await userModel.findOne({ name }).exec();
+
+    //sign in user
+    login: async (parent, { email, password }, { models: { userModel } }, info) => {
+      const user = await userModel.findOne({ email }).exec();
 
       if (!user) {
         throw new AuthenticationError('Invalid credentials');
@@ -31,14 +35,22 @@ export default {
       };
     },
   },
+
+  //mutations
   Mutation: {
-    createUser: async (parent, { name, password }, { models: { userModel } }, info) => {
-      const user = await userModel.create({ name, password });
+
+    //create new user
+    createUser: async (parent, { email, password }, { models: { userModel } }, info) => {
+      const user = await userModel.create({ email, password });
       return user;
     },
   },
+
+//posts for user
   User: {
     posts: async ({ id }, args, { models: { postModel } }, info) => {
+        console.log(id);
+        
       const posts = await postModel.find({ author: id }).exec();
       return posts;
     },

@@ -3,7 +3,7 @@ import { gql } from 'apollo-server';
 export default gql`
   type User {
     id: ID!
-    name: String!
+    email: String!
     posts: [Post!]!
   }
 
@@ -13,10 +13,10 @@ export default gql`
 
   extend type Query {
     user(id: ID!): User!
-    login(name: String!, password: String!): Token!
+    login(email: String!, password: String!): Token!
   }
 
   extend type Mutation {
-    createUser(name: String!, password: String!): User!
+    createUser(email: String!, password: String!): User!
   }
 `;
