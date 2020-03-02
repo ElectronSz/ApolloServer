@@ -11,8 +11,8 @@ const customizationOptions = {};
 const BookTC = composeWithMongoose(Book, customizationOptions);
 const AuthorTC = composeWithMongoose(Author, customizationOptions);
 
-const CompantTc = composeWithMongoose(Company, customizationOptions)
-const UserTc = composeWithMongoose(Company, customizationOptions)
+const CompanyTC = composeWithMongoose(Company, customizationOptions)
+const UserTC = composeWithMongoose(User, customizationOptions)
 
 
 
@@ -40,6 +40,34 @@ AuthorTC.addFields({
   },
 })
 
+
+UserTC.addFields({
+  company: {
+    type: CompanyTC,
+    resolve: company => Company.findOne({ _id: company.company })
+  },
+})
+
+CompanyTC.addFields({
+  userIds: {
+    type: [UserTC],
+    resolve: async (company) => {
+      const user = await User.find({ company: company.id })
+      
+      if (!user) {
+        return []
+      }
+      else {
+
+        return user || []
+      }
+    }
+  },
+})
+
+
+
+
 // BookTC.addResolver({
 //   name: 'getAllBooks',
 //   type: BookTC,
@@ -59,6 +87,14 @@ schemaComposer.Query.addFields({
   // countUsers: UserTC.getResolver('count'),
   // userConnection: UserTC.getResolver('connection'),
   // userPagination: UserTC.getResolver('pagination'),
+
+  //users
+  getUserById: UserTC.getResolver('findById'),
+  getAllUsers: UserTC.getResolver('findMany'),
+
+   //company
+   getCompanyById:CompanyTC.getResolver('findById'),
+   getAllCOmpanies: CompanyTC.getResolver('findMany'),
 
 
 
@@ -84,6 +120,14 @@ schemaComposer.Mutation.addFields({
 
   // //custom [UserTC] resolvers
   // findUserByName: UserTC.getResolver('findUserByName'),
+
+
+  //users
+  createOneUser: UserTC.getResolver('createOne'),
+
+
+  //company
+  createOneCompany: CompanyTC.getResolver('createOne'),
 
 
   createOneBook: BookTC.getResolver('createOne'),
