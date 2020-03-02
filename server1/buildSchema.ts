@@ -19,7 +19,7 @@ const UserTC = composeWithMongoose(User, customizationOptions)
 BookTC.addFields({
   authorId: {
     type: AuthorTC,
-    resolve: book => Author.findOne({ _id: book.authorId })
+    resolve: async book => Author.findOne({ _id: book.authorId })
   },
 })
 
@@ -44,7 +44,7 @@ AuthorTC.addFields({
 UserTC.addFields({
   company: {
     type: CompanyTC,
-    resolve: company => Company.findOne({ _id: company.company })
+    resolve: async company => Company.findOne({ _id: company.company })
   },
 })
 
