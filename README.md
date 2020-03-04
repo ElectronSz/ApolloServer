@@ -1,6 +1,6 @@
 # vue-appollo
 
-## Project setup
+### Project setup
 ```
 yarn install
 ```
