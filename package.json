@@ -10,7 +10,7 @@
     "start": " nodemon node build/index"
   },
   "dependencies": {
-    "apollo-server": "^2.10.1",
+    "apollo-server": "^2.25.4",
     "core-js": "^3.6.4",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
